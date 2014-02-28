@@ -7,6 +7,7 @@ module Rajasms
 
     RAJASMS_URI = 'http://162.211.84.203'
     SMSREGULER_PATH = '/sms/smsreguler.php'
+    SMSMASKING_PATH = '/sms/smsmasking.php'
     SMSSALDO_PATH = '/sms/smssaldo.php'
     SMSREGULER_CHECK_PATH = '/sms/smsregulerreport.php'
     SMSMASKING_CHECK_PATH = '/sms/smsmaskingreport.php'
@@ -20,13 +21,11 @@ module Rajasms
   	end
 
     def reguler to, message
-      if message.length <= 160
-        response = self.class.post(SMSREGULER_PATH, build_query(number:to, message: message))
-        code, data = response.body.split('|')
-        {code: code, data: data}
-      else
-        nil
-      end
+      send(to, message, SMSREGULER_PATH)
+    end
+
+    def masking to, message
+      send(to, message, SMSMASKING_PATH)
     end
 
     def saldo
@@ -46,6 +45,16 @@ module Rajasms
       query ||= {}
       query.merge!(key: @api_key, username: @username, password: @password)
       {query: query}
+    end
+
+    def send to, message, path
+      if message.length <= 160
+        response = self.class.post(path, build_query(number:to, message: message))
+        code, data = response.body.split('|')
+        {code: code, data: data}
+      else
+        nil
+      end
     end
 
   end
