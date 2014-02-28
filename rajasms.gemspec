@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["fajarmf@gmail.com"]
   spec.summary       = %q{Simple wrapper to raja-sms.com service.}
   spec.description   = %q{For regular sms.}
-  spec.homepage      = ""
+  spec.homepage      = "www.fajarmf.net"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
