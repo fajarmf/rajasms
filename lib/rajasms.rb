@@ -48,12 +48,12 @@ module Rajasms
     end
 
     def send to, message, path
-      if message.length <= 160
+      if message.length <= 480
         response = self.class.post(path, build_query(number:to, message: message))
         code, data = response.body.split('|')
         {code: code, data: data}
       else
-        nil
+        raise 'too long brow'
       end
     end
 
